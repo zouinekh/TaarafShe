@@ -1,0 +1,15 @@
+main .container .left{
+  height: max-content;
+  position: sticky;
+  top: var(--sticky-top-left);
+}
+
+main .container .left .profile{
+  padding: var(--card-padding);
+  background: var(--color-white);
+  border-radius: var(--card-border-radius);
+  display: flex;
+  align-items:center;
+  column-gap:1rem;
+  width:100%
+}
