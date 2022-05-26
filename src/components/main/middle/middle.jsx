@@ -3,6 +3,8 @@ import "./middle.css";
 import { useState,useEffect} from "react";
 import Axios from 'axios';
 import {FaRegHeart} from 'react-icons/fa';
+import profileAnonym from './4b5022936cb6f16579dfd1e5fffb649b.jpg'
+
 
 function Middle(props) {
   const data=props.user;
@@ -59,10 +61,11 @@ return nb_l;
             <div class="head">
               <div class="user">
                 <div class="profile-photo">
-                  <img src={friend.pdp} alt="" />
+                  <img src={profileAnonym} alt="" />
                 </div>
                 <div class="info">
-                  <h3>{friend.username}</h3>
+                  <h4>Some One That You May Know</h4>
+                  <small>A friend ('this website respect privacy')</small>
                   <small> <b>{pub.date.substr(11,5)} h</b> </small>
                 </div>
               </div>

@@ -103,13 +103,16 @@ const data=props.user;
         </div>
 
         <a class="menu-item">
+         
           <i className="sidebar-i">
             {" "}
             <BsFillBookmarkFill />
           </i>
+          <a href={`/articles/${data.user_id}`}> 
           <span>
             <h3>Articles</h3>
           </span>
+          </a>
         </a>
 
         <a  href={`/profile/${data.user_id}/${data.user_id}`} class="menu-item" id="theme">
@@ -125,9 +128,11 @@ const data=props.user;
             {" "}
             <AiOutlineSetting />
           </i>
+          <a href={`/settings/${data.user_id}`}> 
           <span>
-            <h3>Settings</h3>
+          <h3>Settings</h3>
           </span>
+          </a>
         </a>
       </div>
       <Theme/>

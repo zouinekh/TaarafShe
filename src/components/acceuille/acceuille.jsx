@@ -11,7 +11,6 @@ import Axios from 'axios';
 function Acceuille() {
   const { id } = useParams();
   const[data,setdata]=useState([]);
-console.log(id)
   useEffect(()=>{
     Axios.post('http://localhost:3001/api/get/user',{id}).then((response) => {
       setdata(response.data[0]);

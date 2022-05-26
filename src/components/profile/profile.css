@@ -49,3 +49,20 @@
 .profileRightBottom{
     display: flex;
 }
+.placeprof{
+    width: 101px;
+    height: 50px;
+    background:linear-gradient(-45deg, #a26769 0%, #d5b9b2 100%);
+    margin-top: -49px;
+    margin-right: 107px;
+    padding-top: 5px;
+    text-align: center;
+    padding-left: 28px;
+    font-size: 0.9rem;
+}
+.makethem{
+    margin-left:  630px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+
+}

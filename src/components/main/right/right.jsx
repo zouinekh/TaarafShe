@@ -83,7 +83,7 @@ const ShowReq=()=>{
   <div class="request" key={friend.user_id}>
     <div class="info">
       <div class="profile-photo">
-     <a href={`http://localhost:3000/profile/${friend.user_id}`}>   <img src={friend.pdp} /></a>
+      <a href={`http://localhost:3000/profile/${id}/${friend.user_id}`}>    <img src={friend.pdp} /></a>
       </div>
       <div>
         <h5>{friend.username}</h5>

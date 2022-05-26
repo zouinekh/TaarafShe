@@ -18,7 +18,7 @@ function App() {
         <Route  path="/home/:id" element={<Acceuille/>}/>
         <Route  path="/profile/:id/:idf" element={<Profile/>}/>
         <Route  path="/settings/:id" element={<Settings/>}/>
-        <Route path='/articles' element={<Article/>}/>
+        <Route path='/articles/:id' element={<Article/>}/>
 
       </Routes>
       
