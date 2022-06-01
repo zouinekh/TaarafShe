@@ -7,6 +7,7 @@ import { BsUpload } from "react-icons/bs";
 
 
 function Settings() {
+
     const {id}=useParams();
     const [data,setData]=useState([]);
     const [userName,setuserName]=useState('');
@@ -18,25 +19,33 @@ function Settings() {
 
     useEffect(()=>{
         Axios.post('http://localhost:3001/api/get/user',{id}).then((response) => {
+            
         setData(response.data[0]);
       console.log(response)
     })
 
     },[])
+
+
     const updateUser=()=>{
-        console.log(img)
-        console.log(userName);
+        console.log("here")
+        setuserName(userName);
 
         if(Password===data.psd&&NPassword===CNPassword){
-            Axios.get('http://localhost:3001/api/Update/user',{id,userName,Email,NPassword,img}).then((response)=>{
-                console.log('done')
+            console.log("here")
+
+            console.log(Email);
+            console.log(NPassword);
+
+            Axios.post('http://localhost:3001/api/Update/user',{id,userName,Email,NPassword,img}).then((response)=>{
+            console.log(response)
             })
         }
     }
   return (
     <div>
 <Navbar user={data}/>
-
+<form encType="multipart/form-data">
 <div class="wrapper bg-white mt-sm-5">
     <h3 class="h3"><b>Account settings</b></h3>
     <hr></hr>
@@ -46,7 +55,7 @@ function Settings() {
         <div class=" pfSetting" id="">
             <b>Profile Photo</b>
             <p className='p'>Accepted file type "png" Less than 1MB</p>
-            <input type="file" name="file" id="file" class="inputfile" accept="image/png, image/gif, image/jpeg" onChange={(e)=> setimg(e.target.value)}/>
+            <input type="file" name="img" id="file" class="inputfile" accept="image/png, image/gif, image/jpeg" onChange={(e)=> setimg(e.target.value)}/>
             <label className='' for="file"><b>Choose a file </b><BsUpload/></label>
   <span class="file-custom"></span>
         </div>
@@ -94,6 +103,7 @@ function Settings() {
         </div>
     </div>
 </div>
+</form>
     </div>
   )
 }

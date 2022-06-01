@@ -19,9 +19,7 @@ const userid=id;
   const[Recomand,setRecomand]=useState([]);
   const[friendReq,setfriendReq]=useState([]);
   useEffect(()=>{
-    const id=idf;
-
-    Axios.post('http://localhost:3001/api/get/user',{id}).then((response) => {
+    Axios.post('http://localhost:3001/api/get/user',{id:idf}).then((response) => {
       setdata(response.data[0]);
       console.log(response)
     })
@@ -35,20 +33,17 @@ const userid=id;
   
     })
   },[]);
-  
-const accepter=()=>{
-  if (userid.includes(friendReq) &&(userid!=idf)){
-  return(
-    <button className=" btn placeprof">Send request</button>
 
-  )}
-}
-  const invite=()=>{
-    if (userid.includes(Recomand)){
-    return(
-    <button className="btn placeprof"> Accept</button>
-    )}
+
+
+  const fnInvite=(idf)=>{
+    console.log(idf)
+    Axios.post('http://localhost:3001/api/insert/follow',{id,idf}).then(() => {
+      console.log('done',idf)
+    })
   }
+
+ 
   return (
     <>
         <Navbar user={data}/>
@@ -73,8 +68,7 @@ const accepter=()=>{
                 <span className="profileInfoDesc">{data.bio}</span>
             </div>
           <div className="makethem">  
-            {invite()}
-            {accepter()}
+        
             </div>
           </div>
           <div className="profileRightBottom">

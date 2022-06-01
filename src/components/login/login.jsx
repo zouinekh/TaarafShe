@@ -15,6 +15,8 @@ function Login() {
   const[add,setadd]=useState("");
   const[mdp,setmdp]=useState("");
   const[data,setdata]=useState('');
+  const[path,setpath]=useState(true);
+
   let navigate = useNavigate();
 
 useEffect(()=>{
@@ -22,16 +24,17 @@ useEffect(()=>{
     setdata(response.data)
   });
 },[]); 
+
 const nav=()=>{
   let b=false;
   data.map((val)=>{
-    if (val.username===add|| val.psd===mdp){
-      navigate(`../home/${val.user_id}`);
+    if (val.username===add && val.psd===mdp){
+      navigate(`../home/${val.user_id}/${path}`);
       b= true;
     }
   })
   return b;
-}
+  }
  const LogIn=()=>{
    console.log(add)
         if (nav()){
@@ -39,35 +42,40 @@ const nav=()=>{
         }
         else
           alert('wrong password or username');
-      console.log(data)
+          console.log(data)
+
         }    
     
   const SignUp=()=>{
-    
-    if(isNaN(age)||UserName===''|| !Email.includes('@') || Email==='' || Password===''|| Password.length<10||data.includes(UserName)||age===null||UserName===null|| Email===null || Password===null){
-      alert('wrong info !!! pls check again');
-      console.log('error');
+    console.log(data.includes(UserName))
+    if(age===''||UserName===''||Email==='' || Password===''|| Password.length<8||data.includes(UserName)||age===null||UserName===null|| Email===null || Password===null){
+      alert("something went wrong ")
+    }else 
+    {
+      Axios.post("http://localhost:3001/api/insert",{UserName,password:Password,Email,age}).then(() => {
+        console.log('here')
+        setMode("containerx sign-in-mode");
+        
+      })
     }
-    else{
-    Axios.post("http://localhost:3001/api/insert",{UserName,password:Password,Email,age}).then(() => {
-      console.log('here')
-    })
-    setMode("containerx sign-in-mode");}
   };
+
+
+
   return (
     <div>
       {" "}
       <div className={Mode}>
         <div className="forms-containerx">
           <div className="signin-signup">
-            <form action="/#" className="sign-in-form form">
+            <form className="sign-in-form form">
               <h2 className="titlex">Sign in</h2>
               <div className="input-fieldx">
-                <i className="fas fa-user"></i>
+                <i ></i>
                 <input type="text" placeholder="Username" onChange={(e)=> setadd(e.target.value)}/>
               </div>
               <div className="input-fieldx">
-                  <i className="fas fa-lock"></i>
+                  <i ></i>
                 <input type="password" placeholder="Password"  onChange={(e)=> setmdp(e.target.value)}/>
               </div>
             
@@ -76,23 +84,23 @@ const nav=()=>{
             <form action="/#" className="sign-up-form form">
               <h2 className="titlex">Sign up</h2>
               <div className="input-fieldx">
-                <i className="fas fa-user "></i>
+                <i ></i>
                 <input type="text" placeholder="Username" onChange={(e)=> setUserName(e.target.value)} />
     
               </div>
               <div className="input-fieldx">
-                <i className="fas fa-envelope"></i>
+                <i ></i>
                 <input type="email" placeholder="Email" onChange={(e)=> setEmail(e.target.value)} />
               </div>
               <div className="input-fieldx">
-                <i className="fas fa-lock"></i>
+                <i></i>
                 <input type="password" placeholder="Password"  onChange={(e)=> setPassword(e.target.value)} />
               </div>
               <div className="input-fieldx">
-                <i className="fas fa-lock"></i>
+                <i ></i>
                 <input type="text" placeholder="Age" onChange={(e)=> setage(e.target.value)} />
               </div>
-              <input type="submit" onClick={()=>{  SignUp()}} className="btns" value="Sign up" />
+              <input type="submit" onClick={()=>{SignUp()}} className="btns" value="Sign up" />
               
             </form>
           </div>

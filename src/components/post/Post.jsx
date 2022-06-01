@@ -8,21 +8,38 @@ import './../main/middle/middle.css'
 import {FaRegHeart} from 'react-icons/fa';
 import './../main/main.css'
 import './../acceuille/acceuille.css'
+import {FcFullTrash} from 'react-icons/fc';
 
 export default function Post(props) {
   const [isLiked,setIsLiked] = useState(false);
+  const [trash,setTrash] = useState("");
+
   const [publication,setPublication]=useState([]);
   const { idf } = useParams();
-  const id=idf;
+  const { id } = useParams();
+
   const data=props.user;
   useEffect(()=>{ 
-    Axios.post('http://localhost:3001/api/get/publication/user',{id}).then((response)=>{
+    Axios.post('http://localhost:3001/api/get/publication/user',{id:idf}).then((response)=>{
     setPublication(response.data);
 })
+
+  if (id=== idf){
+    setTrash(  <FcFullTrash className="trashp"/>
+    )
+  }
   },[])
 
-  console.log(publication)
 
+  const delPost=(id)=>{
+    Axios.post('http://localhost:3001/api/del/post',{id}).then(res=>{
+      console.log(res)
+      console.log('here')
+      window.location.reload(false);
+  
+    });
+  
+  }
   return (
     <div> 
        <div class="middle">
@@ -45,6 +62,7 @@ export default function Post(props) {
                   <div class="info">
                     <h3>{data.username}</h3>
                     <small> <b>{pub.date.substr(11,5)} h</b> </small>
+                    <div  onClick={() =>{delPost(pub.pub_id)}}> {trash }</div>
                   </div>
                 </div>
                 <span class="edit">
@@ -64,6 +82,11 @@ export default function Post(props) {
                   </span>
                 </div>
               </div>
+              <div class="caption">
+                <p>
+               {pub.pub_c}
+                </p>
+              </div>
               <div class="liked-by">
                 
                 <FaRegHeart/>
@@ -73,11 +96,7 @@ export default function Post(props) {
                   Liked by<b> {pub.nb_l}</b>
                 </p>
               </div>
-              <div class="caption">
-                <p>
-                {pub.pub_c}
-                </p>
-              </div>
+             
               <div class="comments text-muted">View all <b> {pub.nb_c}</b>  comments</div>
             </div>
           </div>

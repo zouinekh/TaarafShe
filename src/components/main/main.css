@@ -8,3 +8,28 @@ main {
     column-gap: 2rem;
     position: relative;
   }
+  .alert {
+    width: 100%;
+    padding: 33px 22px;
+    border-radius: 14px;
+    border-style: solid;
+    border-width: 1px;
+    margin-bottom: 12px;
+    margin-top: 33px;
+    font-size: 16px;
+    font-family: "Roboto", sans-serif;
+    text-align: center;
+}
+  
+  
+.alert.alert-warning {
+  background-color: rgba(252, 248, 227, 1);
+  border-color: rgba(177, 161, 129, 1);
+  color: rgba(138, 109, 59, 1);
+}
+
+.alert.alert-danger {
+  background-color: rgba(248, 215, 218, 1);
+  border-color: rgba(220, 53, 69, 1);
+  color: rgba(114, 28, 36,1);
+}

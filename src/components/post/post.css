@@ -15,7 +15,9 @@
   align-items: center;
   justify-content: space-between;
 }
-
+.trashp{
+  margin-left:387px; 
+}
 .postTopLeftX {
   display: flex;
   align-items: center;

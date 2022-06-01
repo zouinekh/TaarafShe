@@ -40,6 +40,8 @@
     overflow: hidden;
     margin: 0.7rem 0;
   }
+  .trash{
+    margin-left:115px;}
   
   .middle .feed .action-buttons{
     display: flex;

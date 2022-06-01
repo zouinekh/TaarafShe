@@ -9,7 +9,7 @@ import { useState,useEffect} from "react";
 
 export default function Share(props) {
   const[data,setdata]=useState([]);
-
+  const[post,setPost]=useState([])
   const {id} = useParams();
 
   useEffect(()=>{
@@ -18,6 +18,17 @@ export default function Share(props) {
       console.log(response)
     })
   },[]);
+
+  const createPost=()=>{
+    if (post!='')
+    {
+    Axios.post('http://localhost:3001/api/get/post',{id,post}).then(res=>{
+      console.log(res)
+      window.location.reload(false);
+  
+    });
+    }
+  }
   return (
     <div className="shareX">
       <div className="shareWrapperX">
@@ -26,6 +37,8 @@ export default function Share(props) {
           <input
             placeholder={`what's in your mind ,${data.username}`}
             className="shareInputX"
+            onChange={(e)=>setPost(e.target.value)}
+
           />
         </div>
         <hr className="shareHrX"/>
@@ -48,7 +61,7 @@ export default function Share(props) {
                     <span className="shareOptionTextX">Feelings</span>
                 </div>
             </div>
-            <button className="shareButtonX">Share</button>
+            <button className="shareButtonX"  onClick={()=>{createPost()}}>Share</button>
         </div>
       </div>
     </div>

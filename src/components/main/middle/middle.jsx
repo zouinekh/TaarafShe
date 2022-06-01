@@ -4,31 +4,50 @@ import { useState,useEffect} from "react";
 import Axios from 'axios';
 import {FaRegHeart} from 'react-icons/fa';
 import profileAnonym from './4b5022936cb6f16579dfd1e5fffb649b.jpg'
+import { useNavigate } from "react-router-dom";
+
 
 
 function Middle(props) {
   const data=props.user;
   const pub=props.pub;
   console.log(pub)
-const[profil,setProfile]=useState([])
+  const id=data.user_id
+  let navigate = useNavigate();
+
 const[LIKES,setLIKES]=useState()
+const[post,setPost]=useState([])
+const[err,setError]=useState('');
 
+useEffect(()=>{ 
 
-const fnFriend=async(id)=>{
-  let friend;
- await Axios.post('http://localhost:3001/api/get/user',{id}).then(res=>{
- friend= res.data
-});
-return friend
+if (pub.length===0){
+  console.log(pub.length)
+  setError(  <div>
+    <div class="alert alert-warning" role="alert"><b>maybe you need to get some friend &#128532; </b></div>
+    <div class="alert alert-danger" role="alert"><b>No Post for you &#128517;</b></div>
+  </div>)
+}else{
+  setError('')
+}
+  },[pub])
+const createPost=()=>{
+  if (post!='')
+  {
+  Axios.post('http://localhost:3001/api/get/post',{id,post}).then(res=>{
+    console.log(res)
+    window.location.reload(false);
+
+  });
+  }
 }
 
+
+
+
 const fnLike=(nb_l,id)=>{
-if (nb_l===nb_l++)
-  {
-  Axios.post('http://localhost:3001/api/pub/addLike',{id,nb_l}).then(console.log(' likes inc'));
-  return nb_l++;
-  }
-return nb_l;
+  Axios.get('http://localhost:3001/api/pub/addLike',{id,nb_l}).then(console.log(' likes inc'));
+return;
 }
 
   return (
@@ -42,17 +61,14 @@ return nb_l;
             type="text"
             placeholder={`what's in your mind ,${data.username}` }
             id=" create-post"
+            onChange={(e)=>setPost(e.target.value)}
           />
-          <input type="submit" value="Post" class="btn btn-priamry" />
+          <div  class="btn btn-priamry" onClick={()=>{createPost()}}>POST</div>
         </form>
         <div class="feeds">
-
+      {err  }
      {
        pub.map((pub)=>{
-         let nb_l=pub.nb_l;
-
-        let friend=fnFriend(pub.user_id);
-        console.log(friend)
 
         return(
           <div key={pub.pub_id}>
@@ -64,7 +80,7 @@ return nb_l;
                   <img src={profileAnonym} alt="" />
                 </div>
                 <div class="info">
-                  <h4>Some One That You May Know</h4>
+                  <h4>SomeOne That You May Know</h4>
                   <small>A friend ('this website respect privacy')</small>
                   <small> <b>{pub.date.substr(11,5)} h</b> </small>
                 </div>
@@ -86,18 +102,19 @@ return nb_l;
                 </span>
               </div>
             </div>
+            
+            <div class="caption">
+              <p>
+              {pub.pub_c}
+              </p>
+            </div>
             <div class="liked-by">
               
-              <FaRegHeart onClick={() =>{setLIKES(nb_l++)}}/>
+              <FaRegHeart onClick={() =>{setLIKES(pub.nb_l++);fnLike(LIKES,pub.user_id)}}/>
         
             
               <p>
                 Liked by<b> {pub.nb_l}</b>
-              </p>
-            </div>
-            <div class="caption">
-              <p>
-              {pub.pub_c}
               </p>
             </div>
             <div class="comments text-muted">View all <b> {pub.nb_c}</b>  comments</div>
@@ -106,7 +123,7 @@ return nb_l;
         </div>)
   })}
         </div>
-
+  
       </div>
 </div>);
 }

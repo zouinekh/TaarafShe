@@ -15,11 +15,12 @@ function Main(props) {
  const[info,setInfo]=useState([]);
 
 
-
   useEffect(()=>{ 
   Axios.post('http://localhost:3001/api/get/publication/friends',{id}).then((response)=>{
     setInfo(response.data);
+    console.log(info)
 })
+
   },[id])
 console.log(id)
 
@@ -29,7 +30,7 @@ console.log(id)
       <main>
         <div class="container">
           <Left user={data}/>
-          <Middle user={data} pub={info} />
+          <Middle user={data} pub={info}/>
           <Right user={data}/>
         </div>
       </main>

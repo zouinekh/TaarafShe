@@ -48,3 +48,13 @@ nav .create {
 {
   color: #A24468;
 }
+.imageholder{
+  width: 49px;
+  height: 43px;
+}
+.lem{
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+
+}
